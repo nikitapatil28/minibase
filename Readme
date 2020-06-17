@@ -1,6 +1,6 @@
 CSE 510 - Database Management System Implementation
 
-Build a Management system to support, store, query on Google's BigTable like database.
+Build a Management system to support, store, query on Google's BigTable like database on existing Minibase.
 
 Insight:
   Bigtable is a sparse, distributed multi dimentional sorted map. A map consists of row key, column key and a timestamp.
