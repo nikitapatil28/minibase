@@ -1,0 +1,45 @@
+CSE 510 - Database Management System Implementation
+
+Build a Management system to support, store, query on Google's BigTable like database.
+
+Insight:
+  Bigtable is a sparse, distributed multi dimentional sorted map. A map consists of row key, column key and a timestamp.
+  (row_key : string, column_key :string, timeStamp: int64) -> String Value.
+  In our implementation we are maintaining latest three versions (timestanped) for each unique (row_key, column_key) combination.
+  e.g. 
+      If we want to stores the ranking of Schools for each state then the Bigtable data would look like:
+      row_key= State Name
+      column_key = School Name
+      timestamp = year
+      value=. ranking
+      
+      (Arizona, ASU, 2017 , 72)
+      (Arizona, ASU, 2018 , 58)
+      (Arizona, ASU, 2019 , 52)
+      then when we insert new record
+      + (Arizona, ASU, 2020 , 57)
+      oldest should be delted mainrtaining only 3 varients.
+      - (Arizona, ASU, 2017 , 72)
+      
+ Features:
+ 
+ 1. Bulk data insertion 
+ 2. Map by map insertion
+ 3. Stored data with 6 different orientation in a same Bigtable:
+    a. No orientation. Store as data comes
+    b. With sorted order of row_key
+    c. With sorted order of column_key
+    d. With sorted oreder of (row_key, column_key)
+    e. With sorted oreder of (row_key, value)
+    f. With sorted oreder of (column_key, value)
+    
+4. Created B+ Tree indexes for each storage orientation:
+5. Query data using indexes
+    Query takes sorting order, filters for row_key, column_key and value attribute and number of buffers in query should 
+    execute
+6. Sort the entire Bigtable according to column_key and store it in new Bigtable 
+7. Implemented join query on two bigtables to join all the maps for the mentioned column_key if the latest value of the 
+   column_key is same in the both Bigtables
+   
+      
+ 
